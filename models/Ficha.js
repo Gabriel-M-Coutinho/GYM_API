@@ -8,6 +8,7 @@ const fichaSchema = new mongoose.Schema({
 
 
 const treinoSchema = new mongoose.Schema({
+    name:String,
     treino:[fichaSchema]
 })
 

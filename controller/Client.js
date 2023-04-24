@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Client = require('../models/Client')
+const Ficha = require('../models/Ficha')
 
 
 /* Clientes */
@@ -66,6 +67,14 @@ const getfichas = async(req,res)=>{
 
 /*FICHAS */
 const createTemplate= async(req,res)=>{
+    const {ficha,name} = req.body
+try{
+  const newtreino = new Ficha({name:name,treino:ficha})
+  await newtreino.save()
+  res.status(200).json({msg:'transação realizada com sucesso'})
+  }catch(err){
+    res.status(500).json(err)
+  }
 
 }
 

@@ -1,28 +1,18 @@
-//import mongoose
 const mongoose = require('mongoose');
 
-//preparando variaveis de ambiente
-require('dotenv').config();
-const DB_USER = process.env.DB_USER;
-const DB_PASS = process.env.DB_PASS;
-
-
-const uri = `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.0d409cx.mongodb.net/GymDB?retryWrites=true&w=majority`;
-// Configurar a chave secreta do JWT a partir do arquivo .env
-
+const uri = 'mongodb://127.0.0.1:27017/GYM_DB'
 
 const connectDB = async () => {
   try {
-
-    await mongoose.connect(uri, {
+    await mongoose.connect(uri , {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
-    console.log('conexão realizada com sucesso')
-   
+    console.log('Conexão realizada com sucesso');
   } catch (error) {
-    console.log('erro na conexão')
+    console.log('Erro na conexão:', error);
   }
 };
 
 module.exports = connectDB;
+

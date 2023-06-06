@@ -89,14 +89,14 @@ const login = async (req,res)=>{
     
 
     }catch(err){
-
+     res.status(401).json({messege:'Senha invalida'})
     }
 
 }
 
 // Metodo de criação de usuario
 const addUser = async (req, res) => {
-    const { username, password, email } = await req.body;
+    const {  password, email } = await req.body;
   
     if (!username || !password) {
       return res

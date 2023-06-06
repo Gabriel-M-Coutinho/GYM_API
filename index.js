@@ -28,8 +28,8 @@ app.put('/edituser/:id',ProtectRoute,editUser)
 
 /*  Rotas De Client e Ficha        */
 app.post('/AddClient',ProtectRoute,addclient)
-app.get('/ficha',ProtectRoute,getfichas)
-app.get('/ficha/:id',ProtectRoute,getFicha)
+app.get('/ficha',getfichas)
+app.get('/ficha/:id',getFicha)
 app.delete('/ficha/:id',ProtectRoute,delclient)
 app.post('/ficha/:id',ProtectRoute,addficha)
 
@@ -40,7 +40,7 @@ app.post('/ficha/:id',ProtectRoute,addficha)
 connectDB();
 
 
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log('iniciado server')
 });
 

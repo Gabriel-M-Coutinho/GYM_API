@@ -10,7 +10,7 @@ const ProtectRoute = async (req, res, next) => {
 
     // Verificar se o token está presente
     if (!token) {
-      return res.status(401).json({ mensagem: 'Token de autorização não fornecido' });
+      return res.status(401).json({ status:401,mensagem: 'Token de autorização não fornecido' });
     }
     
 
@@ -26,7 +26,7 @@ const ProtectRoute = async (req, res, next) => {
   
       } catch (err) {
         console.error('Erro na decodificação do JWT:', err);
-        return res.status(401).json({ mensagem: 'Token inválido' });
+        return res.status(401).json({status:401, mensagem: 'Token inválido' });
       }
 
   
@@ -35,7 +35,7 @@ const ProtectRoute = async (req, res, next) => {
     next();
   } catch (err) {
    
-    return res.status(401).json({ mensagem: 'token invalido'});
+    return res.status(401).json({status:401, mensagem: 'token invalido'});
   }
 };
 

@@ -11,7 +11,7 @@ const {ProtectRoute} = require('./middlewares/jwt')
 
 // Importar os controladores
 const { addUser,login,editUser} = require('./controller/User');
-const {addclient,getfichas,getFicha,delclient, addficha} = require('./controller/Client')
+const {addclient,getfichas,getFicha,delclient, addficha,exficha} = require('./controller/Client')
 
 // Configuração do Express
 app.use(express.urlencoded({ extended: true }));
@@ -32,6 +32,7 @@ app.get('/ficha',getfichas)
 app.get('/ficha/:id',getFicha)
 app.delete('/ficha/:id',ProtectRoute,delclient)
 app.post('/ficha/:id',ProtectRoute,addficha)
+app.get('/exercicios',exficha)
 
 
 

@@ -109,6 +109,18 @@ const addficha = async(req,res)=>{
        }
    }
 
+const exficha = async(req,res)=>{
+
+  try{
+    const TempModel = mongoose.model('TempModel', {}, 'exficha');
+    let data = await TempModel.find({})
+    res.status(200).json(data)
+  }catch{
+    
+  }
 
 
-module.exports = {addclient,addficha,createTemplate,delclient,getfichas,getFicha}
+}
+
+
+module.exports = {addclient,addficha,createTemplate,delclient,getfichas,getFicha,exficha}

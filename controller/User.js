@@ -53,46 +53,35 @@ try{
 
 
 
-const login = async (req,res)=>{
-    const { email, password } = req.body;
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
-    try{
-         // Lógica de autenticação do usuário, por exemplo, verificação do email e senha no banco de dados
-        const user = await User.findOne({ email });
+  try {
+    // Lógica de autenticação do usuário, por exemplo, verificação do email e senha no banco de dados
+    const user = await User.findOne({ email });
 
-      // Verifique se a senha está correta
-      const isEqual = await verifyHashPass(password,user.password)
+    // Verifique se a senha está correta
+    const isEqual = await verifyHashPass(password, user.password);
 
-      if(isEqual){
-        //criar payload
-        const payload = await {
-          id:user._id,
-        
-        }
-        const JWT_SECRET = process.env.JWT_SECRET;
-        const token = jwt.sign(payload,  JWT_SECRET );
-        
-   
+    if (isEqual) {
+      // Criar payload
+      const payload = {
+        id: user._id,
+      };
 
-        res.status(200).json({token})
+      const JWT_SECRET = process.env.JWT_SECRET;
+      const token = jwt.sign(payload, JWT_SECRET);
 
-
-
-
-      }else{
-        return res.status(401).json({ message: 'Credenciais inválidas' });
-      }
-    
-    
-    
-    
-    
-
-    }catch(err){
-     res.status(401).json({messege:'Senha invalida'})
+      res.status(200).json({ status: 200, message: 'Sucesso', token });
+    } else {
+      res.status(401).json({ status: 401, message: 'Credenciais inválidas' });
     }
+  } catch (err) {
+    res.status(401).json({ status: 401, message: 'Senha incorreta' });
+  }
+};
 
-}
+
 
 // Metodo de criação de usuario
 const addUser = async (req, res) => {
@@ -120,11 +109,7 @@ const addUser = async (req, res) => {
             const savedUser = await newuser.save()
             return res.status(200).json(savedUser);
       
-    
-  
-     
-      
-  
+
   
     } catch (err) {
       console.error(err);

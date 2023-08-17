@@ -1,4 +1,4 @@
-# API GYM - Desert_Poke_Api
+# API GYM
 
 **Descrição:** Esta API permite gerenciar usuários e seus dados. Foi desenvolvida utilizando o framework Express do Node.js e o banco de dados MongoDB com a biblioteca Mongoose. A autenticação JWT (Json Web Token) é utilizada para garantir a segurança das rotas.
 

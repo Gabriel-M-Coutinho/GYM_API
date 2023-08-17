@@ -1,85 +1,94 @@
-# Desafio Zuvia Node JS
+# API GYM - Desert_Poke_Api
 
-Desert_Poke_Api: API de Gerenciamento de Usuários e Pokémons
+**Descrição:** Esta API permite gerenciar usuários e seus dados. Foi desenvolvida utilizando o framework Express do Node.js e o banco de dados MongoDB com a biblioteca Mongoose. A autenticação JWT (Json Web Token) é utilizada para garantir a segurança das rotas.
 
-Descrição:
-Esta é uma API que permite gerenciar usuários e pokémons. Ela foi desenvolvida usando o framework Express do Node.js e utiliza o banco de dados MongoDB através da biblioteca Mongoose. A API é protegida por autenticação JWT (Json Web Token) para garantir a segurança das rotas.
+## Endpoints
 
-Funcionalidades:
+### Cadastro de Usuários
 
-### Cadastro de Usuários:
+**Rota:** `POST /signin`
+**Descrição:** Cadastra novos usuários na aplicação.
+**Parâmetros:** Objeto JSON no corpo da requisição com nome, email e senha.
+**Resposta:** Status de sucesso ou erro.
 
-    Rota: POST /signin
-    Descrição: Permite cadastrar novos usuários na aplicação. Requer um objeto JSON no corpo da requisição contendo os dados do usuário, incluindo nome, email e senha. Os dados do usuário são validados e, se válidos, são armazenados no banco de dados MongoDB.
+### Login de Usuários
 
-### Login de Usuários:
+**Rota:** `POST /login`
+**Descrição:** Permite que usuários façam login.
+**Parâmetros:** Objeto JSON no corpo da requisição com email e senha.
+**Resposta:** Token JWT para autenticação.
 
-    Rota: POST /login
-    Descrição: Permite que os usuários façam login na aplicação. Requer um objeto JSON no corpo da requisição contendo o email e a senha do usuário. Os dados são validados e, se corretos, um token JWT é gerado e retornado na resposta para ser utilizado em requisições futuras que exigem autenticação.
+### Edição de Usuários
 
-### Edição de Usuários:
+**Rota:** `PUT /edituser/:id`
+**Descrição:** Permite que usuários editem seus próprios dados.
+**Parâmetros:** ID do usuário na URL e objeto JSON no corpo da requisição.
+**Resposta:** Status de sucesso ou erro.
 
-    Rota: PUT /edituser/:id
-    Descrição: Permite que os usuários autenticados editem seus próprios dados. Requer o ID do usuário como parâmetro na URL e um objeto JSON no corpo da requisição contendo os dados a serem atualizados, como nome, email e senha. Os dados são validados e, se corretos, são atualizados no banco de dados.
+### Obter Dados do Usuário
 
-### Obter Status do Pokémon:
+**Rota:** `GET /user/:id`
+**Descrição:** Obtém os dados de um usuário específico.
+**Parâmetros:** ID do usuário na URL.
+**Resposta:** Dados do usuário.
 
-    Rota: GET /poke/status/:id
-    Descrição: Permite que os usuários autenticados obtenham o status de um pokémon específico. Requer o ID do pokémon como parâmetro na URL. Os dados são buscados no banco de dados e retornados na resposta.
+### Adicionar Usuário
 
-### Obter URL do Pokémon:
+**Rota:** `POST /user`
+**Descrição:** Adiciona um novo usuário.
+**Parâmetros:** Objeto JSON no corpo da requisição com nome, email e senha.
+**Resposta:** Status de sucesso ou erro.
 
-    Rota: GET /poke/:id
-    Descrição: Permite que os usuários obtenham a URL de um pokémon específico. Requer o ID do pokémon como parâmetro na URL. Os dados são buscados no banco de dados e a URL é retornada na resposta.
+### Obter Lista de Usuários
 
-### Adicionar Pokémon:
+**Rota:** `GET /user`
+**Descrição:** Obtém a lista de todos os usuários.
+**Resposta:** Lista de usuários.
 
-    Rota: POST /poke
-    Descrição: Permite que os usuários autenticados adicionem um novo pokémon à sua lista. Requer um objeto JSON no corpo da requisição contendo os dados do pokémon, como nome, tipo e nível. Os dados são validados e, se corretos, são armazenados no banco de dados.
+### Editar Usuário
 
-### Obter Lista de Pokémons:
+**Rota:** `PUT /user/edit/:id`
+**Descrição:** Edita os dados de um usuário específico.
+**Parâmetros:** ID do usuário na URL e objeto JSON no corpo da requisição.
+**Resposta:** Status de sucesso ou erro.
 
-    Rota: GET /poke
-    Descrição: Permite que os usuários autenticados obtenham a lista de todos os pokémons adicionados por eles. Os dados são buscados no banco de dados e retornados na resposta.
+### Excluir Usuário
 
-###  Editar Pokémon:
+**Rota:** `DELETE /user/:id`
+**Descrição:** Exclui um usuário específico.
+**Parâmetros:** ID do usuário na URL.
+**Resposta:** Status de sucesso ou erro.
 
-    Rota: PUT /poke/edit/:id
-    Descrição: Permite que os usuários autenticados editem os dados de um pokémon específico de sua lista. Requer o ID do pokémon como parâmetro na URL e um objeto JSON no corpo da requisição contendo os dados a serem atualizados 'name', 'type1','type2'  Os dados são validados e, se corretos, são atualizados no banco de dados.
+## Middleware de Autenticação JWT
 
-### Excluir Pokémon:
+**Middleware:** `ProtectRoute`
+**Descrição:** Autenticação JWT para proteger rotas.
+**Funcionamento:** Verifica e valida o token JWT no cabeçalho da requisição.
+**Ação:** Permite ou nega o acesso à rota protegida.
 
-    Rota: DELETE /poke/:id
-    Descrição: Permite que os usuários autenticados excluam um pokémon específico de sua lista. Requer o ID do pokémon como parâmetro na URL. O pokémon é removido do banco de dados.
+## Banco de Dados
 
-### Middleware de Autenticação JWT:
+**Banco de Dados:** MongoDB
+**Descrição:** Banco de dados NoSQL orientado a documentos.
+**ODM:** Mongoose é usado como Object Data Modeling para interagir com o MongoDB.
 
-    Middleware: ProtectRoute
-    Descrição: É um middleware de autenticação JWT que protege rotas que exigem autenticação. Ele verifica se o token JWT está presente no cabeçalho da requisição, valida o token e verifica se o usuário associado ao token tem permissão para acessar a rota solicitada. Se o token for válido, a requisição é permitida a prosseguir para a rota protegida, caso contrário, é retornada uma resposta de erro.
+## Dependências
 
-### Banco de Dados:
+- `express`: Biblioteca Node.js para criar APIs web.
+- `mongoose`: Biblioteca Node.js para interagir com o MongoDB.
+- `cors`: Middleware para habilitar o CORS em requisições HTTP.
+- `jsonwebtoken (jwt)`: Biblioteca Node.js para autenticação com tokens JWT.
+- `nodemon`: Biblioteca de desenvolvimento para reiniciar o servidor automaticamente.
+- `dotenv`: Biblioteca para carregar variáveis de ambiente.
 
-    Banco de Dados: MongoDB
-    Descrição: É utilizado o banco de dados MongoDB, um banco de dados NoSQL orientado a documentos, para armazenar os dados de usuários e pokémons. O Mongoose, uma biblioteca Node.js, é utilizado como ODM (Object Data Modeling) para facilitar a interação com o MongoDB.
+## Configuração
 
-### Dependências:
+- **Porta:** A aplicação utiliza a porta 4000.
+- **Conexão com Banco de Dados:** Feita através de `./DB/db.js` com o Mongoose.
+- **Autenticação JWT:** Implementada em `./middlewares/jwt.js` para proteger rotas.
+- **Controladores:** Implementados em `./controller/User.js`.
+- **Variáveis de Ambiente:** Configurações precisam ser definidas no `.env`.
 
-    express: Biblioteca Node.js para criar APIs web.
-    mongoose: Biblioteca Node.js para interagir com o MongoDB.
-    cors: Middleware para habilitar o CORS (Cross-Origin Resource Sharing) em requisições HTTP.
-    jsonwebtoken (jwt): Biblioteca Node.js para gerar e verificar tokens JWT para autenticação.
-    nodemon: Biblioteca de desenvolvimento para reiniciar automaticamente o servidor durante o desenvolvimento.
-    dotenv: Biblioteca para carregar variáveis de ambiente a partir de um arquivo .env.
+## Postman
 
-### Configuração:
-
-    O programa utiliza a porta 4000 para iniciar o servidor Express.
-    A conexão com o banco de dados MongoDB é feita através do arquivo './DB/db.js' utilizando o Mongoose.
-    A autenticação JWT é implementada no middleware './middlewares/jwt.js' para proteger rotas que exigem autenticação.
-    Os controladores para as rotas estão implementados nos arquivos './controller/User.js' e './controller/Poke.js',
-    Variaveis de Ambiente precisam ser refeitas no .env
-
-### POSTMAN
-
-    Link do postman com as rotas prefeitas:
-    https://restless-rocket-722930.postman.co/workspace/Team-Workspace~af464cc5-7a2d-4447-8387-5c2e6f7ead4c/collection/22658973-74a9f9f5-de80-4702-822d-864c14b2e76e?action=share&creator=22658973
+- [Link para a coleção no Postman](https://restless-rocket-722930.postman.co/workspace/Team-Workspace~af464cc5-7a2d-4447-8387-5c2e6f7ead4c/collection/22658973-74a9f9f5-de80-4702-822d-864c14b2e76e?action=share&creator=22658973)
